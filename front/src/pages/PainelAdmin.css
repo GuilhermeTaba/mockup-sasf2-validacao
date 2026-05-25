@@ -1,0 +1,156 @@
+.pa-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 16px;
+}
+
+.page-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* TABS */
+.pa-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.pa-tab {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .14s, color .14s, border-color .14s;
+}
+.pa-tab:hover { background: #f0f4fc; color: var(--text); }
+.pa-tab--active {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+  font-weight: 600;
+}
+
+/* MINI STATS */
+.pa-stats {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.pa-stat {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 3px solid #3b82f6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  min-width: 110px;
+}
+.pa-stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.pa-stat-value {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+/* TABLE */
+.pa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.pa-table thead tr {
+  background: #f8faff;
+  border-bottom: 1px solid var(--border);
+}
+.pa-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.pa-user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pa-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.pa-user-info {
+  display: flex;
+  flex-direction: column;
+}
+.pa-user-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.pa-user-id {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.tipo-badge {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 12px;
+}
+.action-edit {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue);
+  cursor: pointer;
+  padding: 0;
+  transition: opacity .14s;
+}
+.action-edit:hover { opacity: .7; }
+.action-remove {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ef4444;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity .14s;
+}
+.action-remove:hover { opacity: .7; }
