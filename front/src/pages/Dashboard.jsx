@@ -19,12 +19,72 @@ const faixas = [
   { label: '60+',   value: 8,  color: '#93c5fd' },
 ];
 
+const statCards = [
+  {
+    label: 'Famílias atendidas',
+    value: '248',
+    delta: '↑ +4 este mês',
+    deltaClass: 'green',
+    accent: 'green',
+    iconClass: 'stat-icon--green',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Pessoas cadastradas',
+    value: '1.024',
+    delta: '↑ +22 este mês',
+    deltaClass: 'green',
+    accent: 'green',
+    iconClass: 'stat-icon--green',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Atendimentos no mês',
+    value: '187',
+    delta: 'meta: 200',
+    deltaClass: 'gray',
+    accent: 'blue',
+    iconClass: 'stat-icon--blue',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="1"/>
+        <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Documentos pendentes',
+    value: '14',
+    delta: 'requer ação',
+    deltaClass: 'red',
+    accent: 'red',
+    iconClass: 'stat-icon--red',
+    valueClass: 'red',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    ),
+  },
+];
+
 const Dashboard = () => (
   <Layout>
     {/* ── HEADER ── */}
     <div className="dash-header">
       <div>
-        <p className="dash-section">Geral</p>
+        <p className="page-section">Geral</p>
         <h1 className="dash-title">Dashboard</h1>
         <p className="dash-sub">Visão geral da unidade Chico Mendes — junho de 2026</p>
       </div>
@@ -33,26 +93,16 @@ const Dashboard = () => (
 
     {/* ── STAT CARDS ── */}
     <div className="stats-grid">
-      <div className="stat-card stat-card--green">
-        <span className="stat-label">Famílias atendidas</span>
-        <span className="stat-value">248</span>
-        <span className="stat-delta green">↑ +4 este mês</span>
-      </div>
-      <div className="stat-card stat-card--green">
-        <span className="stat-label">Pessoas cadastradas</span>
-        <span className="stat-value">1.024</span>
-        <span className="stat-delta green">↑ +22 este mês</span>
-      </div>
-      <div className="stat-card stat-card--blue">
-        <span className="stat-label">Atendimentos no mês</span>
-        <span className="stat-value">187</span>
-        <span className="stat-delta gray">meta: 200</span>
-      </div>
-      <div className="stat-card stat-card--red">
-        <span className="stat-label">Documentos pendentes</span>
-        <span className="stat-value red">14</span>
-        <span className="stat-delta red">requer ação</span>
-      </div>
+      {statCards.map((s) => (
+        <div key={s.label} className={`stat-card stat-card--${s.accent}`}>
+          <div className="stat-card-top">
+            <span className="stat-label">{s.label}</span>
+            <div className={`stat-icon ${s.iconClass}`}>{s.icon}</div>
+          </div>
+          <span className={`stat-value${s.valueClass ? ` ${s.valueClass}` : ''}`}>{s.value}</span>
+          <span className={`stat-delta ${s.deltaClass}`}>{s.delta}</span>
+        </div>
+      ))}
     </div>
 
     {/* ── CHARTS ROW ── */}
@@ -69,20 +119,15 @@ const Dashboard = () => (
         </div>
 
         <div className="bar-chart">
-          {/* Y axis labels */}
           <div className="bar-y-axis">
             {[220, 165, 110, 55, 0].map(v => (
               <span key={v}>{v}</span>
             ))}
           </div>
-
-          {/* Bars */}
           <div className="bars-area">
-            {/* Grid lines */}
             <div className="grid-lines">
               {[0,1,2,3,4].map(i => <div key={i} className="grid-line" />)}
             </div>
-
             {barData.map((d) => {
               const heightPct = (d.value / BAR_MAX) * 100;
               return (

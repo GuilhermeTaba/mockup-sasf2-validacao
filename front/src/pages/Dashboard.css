@@ -26,21 +26,7 @@
   margin-top: 4px;
 }
 
-.btn-primary {
-  background: #0d2557;
-  color: #fff;
-  border: none;
-  border-radius: 9px;
-  padding: 11px 20px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: background .15s;
-}
-.btn-primary:hover { background: #1a3a8f; }
+/* btn-primary is defined globally in Layout.css */
 
 /* ── STAT CARDS ── */
 .stats-grid {
@@ -52,28 +38,50 @@
 
 .stat-card {
   background: var(--white);
-  border-radius: 12px;
-  padding: 18px 20px 16px;
+  border-radius: 14px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
   border-top: 3px solid transparent;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
 }
 .stat-card--green { border-top-color: #22c55e; }
 .stat-card--blue  { border-top-color: #3b82f6; }
 .stat-card--red   { border-top-color: #ef4444; }
 
+/* Icon + label row at top of card */
+.stat-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.stat-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.stat-icon--green { background: #dcfce7; color: #16a34a; }
+.stat-icon--blue  { background: #dbeafe; color: #2563eb; }
+.stat-icon--red   { background: #fee2e2; color: #dc2626; }
+
 .stat-label {
   font-size: 12px;
   font-weight: 500;
   color: var(--muted);
+  padding-top: 2px;
 }
 .stat-value {
   font-size: 32px;
   font-weight: 800;
   color: var(--text);
   line-height: 1.1;
+  margin-bottom: 4px;
 }
 .stat-value.red { color: #ef4444; }
 

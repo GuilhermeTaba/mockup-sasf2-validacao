@@ -8,8 +8,6 @@ import Familias      from './pages/Familias.jsx'
 import NovosCadastro from './pages/NovosCadastro.jsx'
 import Atendimentos  from './pages/Atendimentos.jsx'
 import PainelAdmin   from './pages/PainelAdmin.jsx'
-import Configuracoes from './pages/Configuracoes.jsx'
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
@@ -20,7 +18,6 @@ createRoot(document.getElementById('root')).render(
         <Route path="/novo-cadastro"  element={<NovosCadastro />} />
         <Route path="/atendimentos"   element={<Atendimentos />} />
         <Route path="/painel-admin"   element={<PainelAdmin />} />
-        <Route path="/configuracoes"  element={<Configuracoes />} />
         <Route path="*"              element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
