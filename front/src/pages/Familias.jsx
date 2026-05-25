@@ -1,29 +1,30 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import Layout from '../components/Layout';
 import './Familias.css';
 
 const FAMILIAS = [
-  { id: 1,  nome: 'Família Oliveira', tecnico: 'Ana Silva',     regiao: 'Jd. Chico Mendes', membros: 5, tel: '(92) 99878-1234', status: 'inativa' },
-  { id: 2,  nome: 'Família Lima',     tecnico: 'Ana Silva',     regiao: 'Vila São José',     membros: 6, tel: '(92) 98012-7799', status: 'ativa' },
-  { id: 3,  nome: 'Família Ribeiro',  tecnico: 'Ana Silva',     regiao: 'Vila São José',     membros: 2, tel: '(92) 99387-0099', status: 'ativa' },
-  { id: 4,  nome: 'Família Souza',    tecnico: 'Carlos Mendes', regiao: 'Jd. Chico Mendes', membros: 4, tel: '(92) 99129-4456', status: 'inativa' },
-  { id: 5,  nome: 'Família Costa',    tecnico: 'Carlos Mendes', regiao: 'Vila Esperança',    membros: 5, tel: '(92) 99001-3844', status: 'acomp' },
-  { id: 6,  nome: 'Família Pereira',  tecnico: 'Beatriz Rocha', regiao: 'Centro',            membros: 3, tel: '(92) 99445-2210', status: 'ativa' },
-  { id: 7,  nome: 'Família Mendes',   tecnico: 'Beatriz Rocha', regiao: 'Centro',            membros: 4, tel: '(92) 99332-7711', status: 'ativa' },
-  { id: 8,  nome: 'Família Almeida',  tecnico: 'Elisa Tavares', regiao: 'Jd. Chico Mendes', membros: 7, tel: '(92) 98785-1100', status: 'inativa' },
+  { id: 1,  responsavel: 'Carlos Oliveira',  tecnico: 'Ana Silva',     regiao: 'Jd. Chico Mendes', membros: 5, tel: '(92) 99878-1234', status: 'urgente' },
+  { id: 2,  responsavel: 'Marta Lima',        tecnico: 'Ana Silva',     regiao: 'Vila São José',     membros: 6, tel: '(92) 98012-7799', status: 'ok'      },
+  { id: 3,  responsavel: 'João Ribeiro',      tecnico: 'Ana Silva',     regiao: 'Vila São José',     membros: 2, tel: '(92) 99387-0099', status: 'ok'      },
+  { id: 4,  responsavel: 'Fernanda Souza',    tecnico: 'Carlos Mendes', regiao: 'Jd. Chico Mendes', membros: 4, tel: '(92) 99129-4456', status: 'urgente' },
+  { id: 5,  responsavel: 'Paulo Costa',       tecnico: 'Carlos Mendes', regiao: 'Vila Esperança',    membros: 5, tel: '(92) 99001-3844', status: 'atencao' },
+  { id: 6,  responsavel: 'Lúcia Pereira',     tecnico: 'Beatriz Rocha', regiao: 'Centro',            membros: 3, tel: '(92) 99445-2210', status: 'ok'      },
+  { id: 7,  responsavel: 'Ricardo Mendes',    tecnico: 'Beatriz Rocha', regiao: 'Centro',            membros: 4, tel: '(92) 99332-7711', status: 'ok'      },
+  { id: 8,  responsavel: 'Sandra Almeida',    tecnico: 'Elisa Tavares', regiao: 'Jd. Chico Mendes', membros: 7, tel: '(92) 98785-1100', status: 'urgente' },
 ];
 
 const STATUS_MAP = {
-  ativa:   { label: 'Ativa',             bg: '#dcfce7', color: '#166534' },
-  inativa: { label: 'Inativa',           bg: '#fee2e2', color: '#991b1b' },
-  acomp:   { label: 'Em acompanhamento', bg: '#fef3c7', color: '#92400e' },
+  ok:      { label: 'Ok',      bg: '#dcfce7', color: '#166534' },
+  atencao: { label: 'Atenção', bg: '#fef3c7', color: '#92400e' },
+  urgente: { label: 'Urgente', bg: '#fee2e2', color: '#991b1b' },
 };
 
 const TABS = [
-  { key: 'todas',   label: 'Todas',              count: 248 },
-  { key: 'ativas',  label: 'Ativas',             count: 212 },
-  { key: 'acomp',   label: 'Em acompanhamento',  count: 84  },
-  { key: 'inativas',label: 'Inativas',           count: 36  },
+  { key: 'todas',   label: 'Todas',   count: 248 },
+  { key: 'ok',      label: 'Ok',      count: 212 },
+  { key: 'atencao', label: 'Atenção', count: 84  },
+  { key: 'urgente', label: 'Urgente', count: 36  },
 ];
 
 const COLORS = ['#1d4ed8','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#0ea5e9','#f97316'];
@@ -38,14 +39,15 @@ const groupByTecnico = (list) => {
 };
 
 const Familias = () => {
+  const navigate = useNavigate();
   const [tab, setTab] = useState('todas');
   const [search, setSearch] = useState('');
 
   const filtered = (tab === 'todas'
     ? FAMILIAS
-    : FAMILIAS.filter(f => f.status === tab || (tab === 'ativas' && f.status === 'ativa'))
+    : FAMILIAS.filter(f => f.status === tab)
   ).filter(f =>
-    !search || f.nome.toLowerCase().includes(search.toLowerCase()) ||
+    !search || f.responsavel.toLowerCase().includes(search.toLowerCase()) ||
     f.tecnico.toLowerCase().includes(search.toLowerCase()) ||
     f.regiao.toLowerCase().includes(search.toLowerCase())
   );
@@ -61,7 +63,7 @@ const Familias = () => {
           <h1 className="page-title">Famílias</h1>
           <p className="page-sub">Unidade Chico Mendes · 248 famílias cadastradas</p>
         </div>
-        <button className="btn-primary">+ Cadastrar família</button>
+        <button className="btn-primary" onClick={() => navigate('/novo-cadastro')}>+ Cadastrar família</button>
       </div>
 
       {/* ── TABS ── */}
@@ -89,7 +91,7 @@ const Familias = () => {
             </svg>
             <input
               type="text"
-              placeholder="Buscar família, técnico ou região..."
+              placeholder="Buscar responsável, técnico ou região..."
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
@@ -106,7 +108,7 @@ const Familias = () => {
         <table className="fam-table">
           <thead>
             <tr>
-              <th>Família</th>
+              <th>Responsável</th>
               <th>Técnico responsável</th>
               <th>Região</th>
               <th>Membros</th>
@@ -135,9 +137,9 @@ const Familias = () => {
                           className="fam-avatar"
                           style={{ background: COLORS[(gi * 3 + fi) % COLORS.length] }}
                         >
-                          {f.nome.charAt(8)}
+                          {f.responsavel.charAt(0)}
                         </div>
-                        <span className="fam-nome">{f.nome}</span>
+                        <span className="fam-nome">{f.responsavel}</span>
                       </div>
                     </td>
                     <td><span className="tecnico-badge">{f.tecnico}</span></td>

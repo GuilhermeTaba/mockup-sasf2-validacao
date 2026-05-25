@@ -138,13 +138,9 @@ const Layout = ({ children }) => {
 
         {/* Footer */}
         <div className="sidebar-footer">
-          <div className="sf-user">
+          <div className={`sf-user${collapsed ? ' sf-user--collapsed' : ''}`}>
             <div className="sf-avatar" title={collapsed ? 'Ana Silva' : undefined}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
-              </svg>
+              AS
             </div>
             {!collapsed && (
               <div className="sf-info">
@@ -153,17 +149,37 @@ const Layout = ({ children }) => {
               </div>
             )}
           </div>
-          {!collapsed && (
-            <button className="sair-btn" onClick={() => navigate('/')}>
+
+          {/* Botão recolher/expandir — aparece acima do sair quando collapsed */}
+          {collapsed && (
+            <button
+              className="sair-btn expand-btn"
+              onClick={() => setCollapsed(c => !c)}
+              title="Expandir menu"
+              aria-label="Expandir menu"
+            >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-                <polyline points="16 17 21 12 16 7"/>
-                <line x1="21" y1="12" x2="9" y2="12"/>
+                <path d="M9 18l6-6-6-6"/>
               </svg>
-              <span>Sair</span>
             </button>
           )}
+
+          {/* Botão sair — sempre visível, só ícone quando collapsed */}
+          <button
+            className={`sair-btn${collapsed ? ' expand-btn' : ''}`}
+            onClick={() => navigate('/')}
+            title={collapsed ? 'Sair' : undefined}
+            aria-label="Sair"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            {!collapsed && <span>Sair</span>}
+          </button>
         </div>
       </aside>
 
