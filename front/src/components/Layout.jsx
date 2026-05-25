@@ -1,31 +1,119 @@
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
+import sasfLogo from '../assets/sasf_logo.jpg'
 import './Layout.css';
 
+/* ── SVG Icon helper ── */
+const Icon = ({ children, viewBox = '0 0 24 24' }) => (
+  <svg
+    width="17" height="17"
+    viewBox={viewBox}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.75"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    {children}
+  </svg>
+);
+
 const navItems = [
-  { label: 'Dashboard',      path: '/dashboard' },
-  { label: 'Famílias',       path: '/familias' },
-  { label: 'Novo cadastro',  path: '/novo-cadastro' },
-  { label: 'Atendimentos',   path: '/atendimentos' },
-  { label: 'Painel de admin',path: '/painel-admin' },
-  { label: 'Configurações',  path: '/configuracoes' },
+  {
+    label: 'Dashboard',
+    path: '/dashboard',
+    icon: (
+      <Icon>
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H14v-5h-4v5H4a1 1 0 01-1-1V9.5z"/>
+      </Icon>
+    ),
+  },
+  {
+    label: 'Famílias',
+    path: '/familias',
+    icon: (
+      <Icon>
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+        <path d="M16 3.13a4 4 0 010 7.75"/>
+      </Icon>
+    ),
+  },
+  {
+    label: 'Novo cadastro',
+    path: '/novo-cadastro',
+    icon: (
+      <Icon>
+        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+        <line x1="19" y1="8" x2="19" y2="14"/>
+        <line x1="22" y1="11" x2="16" y2="11"/>
+      </Icon>
+    ),
+  },
+  {
+    label: 'Atendimentos',
+    path: '/atendimentos',
+    icon: (
+      <Icon>
+        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+        <rect x="9" y="3" width="6" height="4" rx="1"/>
+        <line x1="9" y1="12" x2="15" y2="12"/>
+        <line x1="9" y1="16" x2="13" y2="16"/>
+      </Icon>
+    ),
+  },
+  {
+    label: 'Painel de admin',
+    path: '/painel-admin',
+    icon: (
+      <Icon>
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+      </Icon>
+    ),
+  },
 ];
 
 const Layout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="app-layout">
+    <div className={`app-layout${collapsed ? ' sidebar-collapsed' : ''}`}>
+
       {/* ── SIDEBAR ── */}
-      <aside className="sidebar">
+      <aside className={`sidebar${collapsed ? ' sidebar--collapsed' : ''}`}>
+
+        {/* Brand / Logo + Toggle */}
         <div className="sidebar-brand">
-          <div className="brand-icon">S</div>
-          <div className="brand-text">
-            <span className="brand-name">SASF</span>
-            <span className="brand-unit">Chico Mendes</span>
+          <div className="brand-logo-wrap">
+            <img src={sasfLogo} alt="SASF" className="brand-logo" />
           </div>
+          <button
+            className="sidebar-toggle"
+            onClick={() => setCollapsed(c => !c)}
+            title={collapsed ? 'Expandir menu' : 'Recolher menu'}
+            aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
+          >
+            <svg
+              width="14" height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              className={`toggle-icon${collapsed ? ' toggle-icon--rotated' : ''}`}
+            >
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2.5"
+                strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
 
+        {/* Nav */}
         <nav className="sidebar-nav">
           {navItems.map((item) => {
             const active = location.pathname === item.path;
@@ -34,23 +122,34 @@ const Layout = ({ children }) => {
                 key={item.path}
                 to={item.path}
                 className={`nav-link${active ? ' nav-link--active' : ''}`}
+                title={collapsed ? item.label : undefined}
               >
-                <span className={`nav-dot${active ? ' nav-dot--active' : ''}`} />
-                {item.label}
+                <span className="nav-icon">{item.icon}</span>
+                {!collapsed && (
+                  <>
+                    <span className="nav-label">{item.label}</span>
+                    <span className={`nav-dot${active ? ' nav-dot--active' : ''}`} />
+                  </>
+                )}
               </Link>
             );
           })}
         </nav>
 
+        {/* Footer */}
         <div className="sidebar-footer">
           <div className="sf-user">
-            <div className="sf-avatar">AS</div>
-            <div className="sf-info">
-              <span className="sf-name">Ana Silva</span>
-              <span className="sf-role">Assistente social</span>
-            </div>
+            <div className="sf-avatar" title={collapsed ? 'Ana Silva' : undefined}>AS</div>
+            {!collapsed && (
+              <div className="sf-info">
+                <span className="sf-name">Ana Silva</span>
+                <span className="sf-role">Assistente social</span>
+              </div>
+            )}
           </div>
-          <button className="sair-btn" onClick={() => navigate('/')}>Sair →</button>
+          {!collapsed && (
+            <button className="sair-btn" onClick={() => navigate('/')}>Sair →</button>
+          )}
         </div>
       </aside>
 

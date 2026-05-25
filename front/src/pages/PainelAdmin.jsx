@@ -14,39 +14,69 @@ const USUARIOS = [
 ];
 
 const TIPO_COLOR = {
-  'Técnica':    '#dbeafe',
-  'Técnico':    '#dbeafe',
-  'Admin':      '#fef3c7',
-  'Orientador': '#dcfce7',
-};
-const TIPO_TEXT = {
-  'Técnica':    '#1d4ed8',
-  'Técnico':    '#1d4ed8',
-  'Admin':      '#92400e',
-  'Orientador': '#166534',
+  'Técnica':    { bg: '#dbeafe', color: '#1d4ed8' },
+  'Técnico':    { bg: '#dbeafe', color: '#1d4ed8' },
+  'Admin':      { bg: '#fef3c7', color: '#92400e' },
+  'Orientador': { bg: '#dcfce7', color: '#166534' },
 };
 
-const TABS = ['Usuários','Permissões','Unidades','Logs de acesso','Configurações'];
+const TABS = ['Usuários', 'Permissões', 'Unidades', 'Logs de acesso'];
+
+const statCards = [
+  { label: 'Total de usuários', value: 18, accent: '#3b82f6', iconBg: '#dbeafe', iconColor: '#2563eb',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg> },
+  { label: 'Administradores',   value: 2,  accent: '#f59e0b', iconBg: '#fef3c7', iconColor: '#d97706',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> },
+  { label: 'Técnicos',          value: 12, accent: '#3b82f6', iconBg: '#dbeafe', iconColor: '#2563eb',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> },
+  { label: 'Orientadores',      value: 4,  accent: '#22c55e', iconBg: '#dcfce7', iconColor: '#16a34a',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> },
+  { label: 'Ativos hoje',       value: 11, accent: '#1d4ed8', iconBg: '#dbeafe', iconColor: '#2563eb',
+    icon: <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
+];
 
 const PainelAdmin = () => {
   const [tab, setTab] = useState('Usuários');
+  const [search, setSearch] = useState('');
+
+  const lista = USUARIOS.filter(u =>
+    !search ||
+    u.nome.toLowerCase().includes(search.toLowerCase()) ||
+    u.email.toLowerCase().includes(search.toLowerCase()) ||
+    u.tipo.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <Layout>
-      <div className="pa-header">
+      {/* ── HEADER ── */}
+      <div className="page-header">
         <div>
+          <p className="page-section">Administração</p>
           <h1 className="page-title">Painel de admin</h1>
           <p className="page-sub">Gerencie usuários, permissões e acessos do sistema</p>
         </div>
         <button className="btn-primary">+ Novo usuário</button>
       </div>
 
-      {/* TABS */}
-      <div className="pa-tabs">
+      {/* ── STAT CARDS ── */}
+      <div className="pa-stats-row">
+        {statCards.map(s => (
+          <div key={s.label} className="pa-stat-card" style={{ borderTopColor: s.accent }}>
+            <div className="stat-card-top">
+              <span className="pa-stat-label">{s.label}</span>
+              <div className="stat-icon" style={{ background: s.iconBg, color: s.iconColor }}>{s.icon}</div>
+            </div>
+            <span className="pa-stat-value" style={{ color: s.accent }}>{s.value}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* ── TABS ── */}
+      <div className="tabs">
         {TABS.map(t => (
           <button
             key={t}
-            className={`pa-tab${tab === t ? ' pa-tab--active' : ''}`}
+            className={`tab${tab === t ? ' tab--active' : ''}`}
             onClick={() => setTab(t)}
           >
             {t}
@@ -54,24 +84,30 @@ const PainelAdmin = () => {
         ))}
       </div>
 
-      {/* MINI STATS */}
-      <div className="pa-stats">
-        {[
-          { label: 'Total de usuários', value: 18, accent: '#3b82f6' },
-          { label: 'Administradores',   value: 2,  accent: '#f59e0b' },
-          { label: 'Técnicos',          value: 12, accent: '#3b82f6' },
-          { label: 'Orientadores',      value: 4,  accent: '#3b82f6' },
-          { label: 'Ativos hoje',       value: 11, accent: '#3b82f6' },
-        ].map(s => (
-          <div key={s.label} className="pa-stat">
-            <span className="pa-stat-label">{s.label}</span>
-            <span className="pa-stat-value" style={{ color: s.accent }}>{s.value}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* TABLE */}
+      {/* ── TABLE ── */}
       <div className="table-card">
+        <div className="table-toolbar">
+          <div className="toolbar-search">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none">
+              <circle cx="8.5" cy="8.5" r="5.5" stroke="#9ca3af" strokeWidth="1.6"/>
+              <path d="M13 13l3.5 3.5" stroke="#9ca3af" strokeWidth="1.6" strokeLinecap="round"/>
+            </svg>
+            <input
+              type="text"
+              placeholder="Buscar usuário..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="toolbar-spacer" />
+          <button className="btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            Exportar
+          </button>
+        </div>
+
         <table className="pa-table">
           <thead>
             <tr>
@@ -83,24 +119,22 @@ const PainelAdmin = () => {
             </tr>
           </thead>
           <tbody>
-            {USUARIOS.map(u => (
+            {lista.map(u => (
               <tr key={u.id} className="data-row">
                 <td>
                   <div className="pa-user-cell">
-                    <div className="pa-avatar" style={{ background: u.color }}>
-                      {u.inicial}
-                    </div>
+                    <div className="pa-avatar" style={{ background: u.color }}>{u.inicial}</div>
                     <div className="pa-user-info">
                       <span className="pa-user-name">{u.nome}</span>
-                      <span className="pa-user-id muted">{u.id}</span>
+                      <span className="pa-user-id">{u.id}</span>
                     </div>
                   </div>
                 </td>
                 <td className="muted">{u.email}</td>
                 <td>
                   <span
-                    className="tipo-badge"
-                    style={{ background: TIPO_COLOR[u.tipo], color: TIPO_TEXT[u.tipo] }}
+                    className="status-chip"
+                    style={{ background: TIPO_COLOR[u.tipo].bg, color: TIPO_COLOR[u.tipo].color }}
                   >
                     {u.tipo}
                   </span>
@@ -116,6 +150,16 @@ const PainelAdmin = () => {
             ))}
           </tbody>
         </table>
+
+        <div className="pagination">
+          <span className="pagination-info">Exibindo {lista.length} de 18 usuários</span>
+          <div className="pagination-btns">
+            <button className="page-btn disabled">‹</button>
+            <button className="page-btn page-btn--active">1</button>
+            <button className="page-btn">2</button>
+            <button className="page-btn">›</button>
+          </div>
+        </div>
       </div>
     </Layout>
   );
