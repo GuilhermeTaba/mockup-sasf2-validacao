@@ -107,7 +107,7 @@ const Layout = ({ children }) => {
               fill="none"
               className={`toggle-icon${collapsed ? ' toggle-icon--rotated' : ''}`}
             >
-              <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2.5"
+              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.5"
                 strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
@@ -139,7 +139,13 @@ const Layout = ({ children }) => {
         {/* Footer */}
         <div className="sidebar-footer">
           <div className="sf-user">
-            <div className="sf-avatar" title={collapsed ? 'Ana Silva' : undefined}>AS</div>
+            <div className="sf-avatar" title={collapsed ? 'Ana Silva' : undefined}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
             {!collapsed && (
               <div className="sf-info">
                 <span className="sf-name">Ana Silva</span>
@@ -148,7 +154,15 @@ const Layout = ({ children }) => {
             )}
           </div>
           {!collapsed && (
-            <button className="sair-btn" onClick={() => navigate('/')}>Sair →</button>
+            <button className="sair-btn" onClick={() => navigate('/')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              <span>Sair</span>
+            </button>
           )}
         </div>
       </aside>
