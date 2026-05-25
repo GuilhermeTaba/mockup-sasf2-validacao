@@ -9,6 +9,7 @@ import NovosCadastro from './pages/NovosCadastro.jsx'
 import Atendimentos  from './pages/Atendimentos.jsx'
 import PainelAdmin      from './pages/PainelAdmin.jsx'
 import NovoAtendimento  from './pages/NovoAtendimento.jsx'
+import Agenda           from './pages/Agenda.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/novo-cadastro"      element={<NovosCadastro />} />
         <Route path="/atendimentos"       element={<Atendimentos />} />
         <Route path="/novo-atendimento"   element={<NovoAtendimento />} />
+        <Route path="/agenda"             element={<Agenda />} />
         <Route path="/painel-admin"       element={<PainelAdmin />} />
         <Route path="*"                  element={<Navigate to="/" replace />} />
       </Routes>
