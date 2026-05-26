@@ -698,3 +698,186 @@ html, body, #root {
 }
 .step-item--active .step-label { color: var(--text); font-weight: 600; }
 .step-item--done .step-label   { color: #16a34a; }
+
+/* ═══════════════════════════════════════
+   HAMBURGER (visível só mobile)
+═══════════════════════════════════════ */
+.hamburger-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: var(--text);
+  transition: background var(--transition);
+}
+.hamburger-btn:hover { background: #f4f6fb; }
+
+/* Botão X dentro da sidebar — só mobile */
+.sidebar-close-btn {
+  display: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.8);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: background var(--transition);
+}
+.sidebar-close-btn:hover { background: rgba(255,255,255,0.22); color: #fff; }
+
+/* Overlay escuro atrás do drawer */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 299;
+  backdrop-filter: blur(1.5px);
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVO — tablet (≤ 1024px)
+═══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .page-content { padding: 20px 20px; }
+  .topbar       { padding: 10px 20px; }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVO — mobile (≤ 768px)
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Hamburger visível */
+  .hamburger-btn { display: flex; }
+
+  /* Botão fechar dentro da sidebar */
+  .sidebar-close-btn { display: flex; }
+
+  /* Overlay ativado */
+  .sidebar-overlay { display: block; }
+
+  /* Sidebar vira drawer fixo */
+  .sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 300;
+    width: var(--sb-width) !important;
+    min-width: var(--sb-width) !important;
+    transform: translateX(-100%);
+    transition: transform var(--transition) !important;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.22);
+  }
+
+  /* Drawer aberto */
+  .sidebar--open {
+    transform: translateX(0) !important;
+  }
+
+  /* Forçar brand normal no mobile (sem collapsed) */
+  .sidebar--collapsed .sidebar-brand {
+    justify-content: flex-start !important;
+    padding: 14px 12px !important;
+  }
+  .sidebar--collapsed .sidebar-toggle { display: none; }
+
+  /* Mostrar labels e dot mesmo se collapsed no desktop */
+  .sidebar--collapsed .nav-label,
+  .sidebar--collapsed .nav-dot { display: block; }
+
+  .sidebar--collapsed .nav-link { padding: 10px 12px; }
+
+  /* Toggle escondido, X visível */
+  .sidebar-toggle { display: none !important; }
+
+  /* Main wrapper — largura total */
+  .main-wrapper { width: 100%; }
+
+  /* Topbar compacta */
+  .topbar { padding: 8px 14px; gap: 10px; }
+
+  /* Pesquisa ocupa espaço disponível */
+  .search-wrap { max-width: none; flex: 1; min-width: 0; }
+
+  /* Ícones opcionais somem em telas muito pequenas */
+  .tb-hide-xs { display: none; }
+
+  /* Page content */
+  .page-content { padding: 14px 14px; }
+
+  /* Page header empilha */
+  .page-header {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .page-header .btn-primary,
+  .page-header .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Título menor */
+  .page-title { font-size: 22px; }
+
+  /* Tabs scrolláveis horizontalmente */
+  .tabs {
+    overflow-x: auto;
+    overflow-y: visible;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 0;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  /* Table card scrollável */
+  .table-card { overflow: visible; }
+
+  /* Toolbar empilha */
+  .table-toolbar { flex-wrap: wrap; gap: 8px; }
+  .toolbar-search {
+    max-width: none;
+    width: 100%;
+    flex: none;
+  }
+  .toolbar-spacer { display: none; }
+
+  /* Paginação empilha */
+  .pagination {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  /* Steps scrolláveis */
+  .step-progress { padding: 14px 16px; gap: 0; }
+  .step-label    { display: none; }     /* esconde texto, mantém número */
+  .step-connector { min-width: 20px; }
+
+  /* Botões de ação nas tabelas empilham */
+  .actions-cell { flex-wrap: wrap; gap: 6px; }
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVO — mobile pequeno (≤ 480px)
+═══════════════════════════════════════ */
+@media (max-width: 480px) {
+  .page-content { padding: 12px 12px; }
+  .page-title   { font-size: 20px; }
+  .topbar       { padding: 8px 12px; gap: 8px; }
+  .data-row td  { padding: 10px 12px; font-size: 12px; }
+}

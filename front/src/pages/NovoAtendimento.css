@@ -354,10 +354,18 @@
 
 /* ── Responsivo ── */
 @media (max-width: 900px) {
-  .na-grid {
-    grid-template-columns: 1fr;
-  }
-  .na-row2 {
-    grid-template-columns: 1fr;
-  }
+  .na-grid  { grid-template-columns: 1fr; }
+  .na-row2  { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .na-card          { padding: 18px 16px; }
+  .na-header-actions { flex-direction: column; gap: 8px; }
+  .na-header-actions .btn-primary,
+  .na-header-actions .btn-secondary { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .na-card          { padding: 14px 12px; }
+  .na-rec-btn       { width: 72px; height: 72px; }
 }

@@ -418,6 +418,55 @@
   text-align: right;
 }
 
+/* ── Responsivo Agenda ── */
+@media (max-width: 768px) {
+  /* Barra de técnicos — scroll horizontal */
+  .ag-bar {
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+  }
+  .ag-bar::-webkit-scrollbar { display: none; }
+  .ag-tec-btn { flex-shrink: 0; }
+
+  /* Nav label menor */
+  .ag-nav-label { font-size: 12px; }
+  .ag-nav       { padding: 10px 14px; gap: 8px; }
+  .ag-hoje-btn  { font-size: 11px; padding: 4px 8px; }
+
+  /* Grade: altura máxima menor */
+  .ag-grid-outer { max-height: calc(100vh - 260px); }
+
+  /* Dia mínimo menor para caber mais dias */
+  .ag-day { min-width: 84px; }
+
+  /* Coluna de horas mais estreita */
+  .ag-h-col { width: 46px; }
+  .ag-h-slot span { font-size: 9.5px; padding-right: 6px; }
+
+  /* Header do dia compacto */
+  .ag-day-hd { height: 46px; }
+  .ag-day-num { font-size: 16px; }
+  .ag-day-num--hoje { width: 26px; height: 26px; font-size: 13px; }
+
+  /* Blocos de agendamento compactos */
+  .ag-apt { left: 2px; right: 2px; padding: 3px 4px; }
+  .ag-apt-time { font-size: 9px; }
+  .ag-apt-resp { font-size: 10px; }
+
+  /* Modal de tela cheia */
+  .ag-modal { max-width: none; margin: 0; border-radius: 16px 16px 0 0; }
+  .ag-overlay { align-items: flex-end; padding: 0; }
+  .ag-modal--sm { max-width: none; border-radius: 16px 16px 0 0; }
+}
+
+@media (max-width: 480px) {
+  .ag-day { min-width: 68px; }
+  .ag-h-col { width: 38px; }
+  .ag-form-row2 { grid-template-columns: 1fr; }
+}
+
 /* ── Form fields ── */
 .ag-form-row2 {
   display: grid;

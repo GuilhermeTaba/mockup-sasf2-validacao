@@ -57,3 +57,34 @@
   border-color: var(--blue);
   font-weight: 600;
 }
+
+/* ── Responsivo Atendimentos ── */
+@media (max-width: 768px) {
+  /* Filtros scrolláveis */
+  .at-filter-group {
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+  }
+  .at-filter-group::-webkit-scrollbar { display: none; }
+  .at-filter-btn { white-space: nowrap; flex-shrink: 0; }
+
+  /* Esconde técnico e tipo na tabela */
+  .at-table th:nth-child(3),
+  .at-table td:nth-child(3) { display: none; }
+
+  /* Scroll horizontal */
+  .at-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Esconde tipo também */
+  .at-table th:nth-child(4),
+  .at-table td:nth-child(4) { display: none; }
+
+  .at-id { font-size: 10px; padding: 1px 5px; }
+}

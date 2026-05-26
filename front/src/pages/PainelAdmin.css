@@ -292,3 +292,40 @@
   color: #9ca3af;
   font-size: 13px;
 }
+
+/* ── Responsivo PainelAdmin ── */
+@media (max-width: 768px) {
+  /* Stats cards — 2 por linha */
+  .pa-stats-row { gap: 8px; }
+  .pa-stat-card { min-width: 140px; padding: 12px 14px; }
+  .pa-stat-value { font-size: 22px; }
+
+  /* Esconde e-mail e último acesso na tabela */
+  .pa-table th:nth-child(2),
+  .pa-table td:nth-child(2),
+  .pa-table th:nth-child(4),
+  .pa-table td:nth-child(4) { display: none; }
+
+  /* Cards de solicitação empilham */
+  .pa-solicit-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .pa-solicit-right {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+  .pa-btn-aprovar,
+  .pa-btn-rejeitar { flex: 1; justify-content: center; }
+
+  /* Banner de permissões */
+  .pa-perm-banner { flex-wrap: wrap; gap: 6px; }
+}
+
+@media (max-width: 480px) {
+  .pa-stats-row { display: grid; grid-template-columns: 1fr 1fr; }
+  .pa-stat-card { min-width: 0; }
+}

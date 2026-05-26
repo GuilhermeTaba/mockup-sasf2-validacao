@@ -349,3 +349,25 @@
   min-width: 28px;
   text-align: right;
 }
+
+/* ── Responsivo Dashboard ── */
+@media (max-width: 768px) {
+  .dash-header { flex-direction: column; gap: 10px; }
+  .dash-header .btn-primary { width: 100%; justify-content: center; }
+  .dash-title  { font-size: 24px; }
+
+  .stats-grid  { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-value  { font-size: 26px; }
+
+  .charts-row  { grid-template-columns: 1fr; gap: 12px; }
+  .bar-chart   { height: 160px; }
+
+  .donut-row   { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .stat-card  { padding: 14px; }
+  .stat-value { font-size: 22px; }
+  .chart-card { padding: 14px; }
+}

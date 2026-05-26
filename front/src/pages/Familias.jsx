@@ -105,6 +105,7 @@ const Familias = () => {
           </button>
         </div>
 
+        <div className="fam-table-wrap">
         <table className="fam-table">
           <thead>
             <tr>
@@ -168,6 +169,7 @@ const Familias = () => {
             )}
           </tbody>
         </table>
+        </div>
 
         {/* PAGINATION */}
         <div className="pagination">

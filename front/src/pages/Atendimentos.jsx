@@ -99,6 +99,7 @@ const Atendimentos = () => {
           </button>
         </div>
 
+        <div className="at-table-wrap">
         <table className="at-table">
           <thead>
             <tr>
@@ -134,6 +135,7 @@ const Atendimentos = () => {
             ))}
           </tbody>
         </table>
+        </div>
 
         <div className="pagination">
           <span className="pagination-info">Exibindo {lista.length} de 187 atendimentos</span>
