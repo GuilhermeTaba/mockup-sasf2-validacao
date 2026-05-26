@@ -90,3 +90,30 @@
   color: var(--muted);
   font-size: 13px;
 }
+
+/* ── Responsivo Famílias ── */
+@media (max-width: 768px) {
+  /* Scroll horizontal na tabela */
+  .fam-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Esconde colunas menos importantes */
+  .fam-table th:nth-child(3),
+  .fam-table td:nth-child(3),
+  .fam-table th:nth-child(4),
+  .fam-table td:nth-child(4),
+  .fam-table th:nth-child(5),
+  .fam-table td:nth-child(5) { display: none; }
+
+  /* Ação menor */
+  .fam-table th:last-child,
+  .fam-table td:last-child { padding: 10px 10px; }
+}
+
+@media (max-width: 480px) {
+  /* Esconde também o técnico */
+  .fam-table th:nth-child(2),
+  .fam-table td:nth-child(2) { display: none; }
+}

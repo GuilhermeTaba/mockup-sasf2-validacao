@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import Layout from '../components/Layout';
 import './Atendimentos.css';
 
@@ -42,6 +43,7 @@ const statCards = [
 ];
 
 const Atendimentos = () => {
+  const navigate = useNavigate();
   const [filtro, setFiltro] = useState('todos');
 
   const lista = filtro === 'todos' ? ATENDIMENTOS : ATENDIMENTOS.filter(a => a.status === filtro);
@@ -55,7 +57,7 @@ const Atendimentos = () => {
           <h1 className="page-title">Atendimentos</h1>
           <p className="page-sub">Unidade Chico Mendes · junho de 2026</p>
         </div>
-        <button className="btn-primary">+ Novo atendimento</button>
+        <button className="btn-primary" onClick={() => navigate('/novo-atendimento')}>+ Novo atendimento</button>
       </div>
 
       {/* ── STAT CARDS ── */}
@@ -97,6 +99,7 @@ const Atendimentos = () => {
           </button>
         </div>
 
+        <div className="at-table-wrap">
         <table className="at-table">
           <thead>
             <tr>
@@ -132,6 +135,7 @@ const Atendimentos = () => {
             ))}
           </tbody>
         </table>
+        </div>
 
         <div className="pagination">
           <span className="pagination-info">Exibindo {lista.length} de 187 atendimentos</span>
